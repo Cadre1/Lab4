@@ -8,12 +8,15 @@ The program, main.py, is ran on the microcontroller and contains the three class
 One test that was conducted prior to adjusting the GUI to set the position setpoint and Kp values was to test for the smallest possible task timing without affecting the effectiveness of the controller. The period of this task timing that we determined was the smallest without losing controller effectiveness was 25ms, as seen in Figure 1.
 
 ![Minimum Input Period](https://github.com/Cadre1/Lab4/assets/55156855/a421cfda-80c9-42af-abf0-d619554a3031)
+
 Figure 1. Smallest Task Timing without Losing Controller Effectiveness
 
 The next two figures, Figure 2 and 3, show that increasing the period too much - from 20ms and 25ms for blue and orange, respectively, to 40ms and 45ms for blue and orange, respectively - makes the response significantly less smooth since the controller is only ran periodically to adjust the motor.
 
 ![Dual Step Responses](https://github.com/Cadre1/Lab4/assets/55156855/6307fb36-73d6-4841-b59e-4533332be3e4)
+
 Figure 2. 20ms and 25ms Task Timing Step Response Effectiveness
 
 ![Dual Step Responses(40,45ms)](https://github.com/Cadre1/Lab4/assets/55156855/eab9818c-d935-4d83-ba66-46c7cb78a581)
+
 Figure 3. 40ms and 45ms Task Timing Step Response Effectiveness
