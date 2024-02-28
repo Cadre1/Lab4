@@ -11,6 +11,7 @@ One test that was conducted prior to adjusting the GUI to set the position setpo
 
 Figure 1. Smallest Task Timing without Losing Controller Effectiveness
 
+
 The next two figures, Figure 2 and 3, show that increasing the period too much - from 20ms and 25ms for blue and orange, respectively, to 40ms and 45ms for blue and orange, respectively - makes the response significantly less smooth since the controller is only ran periodically to adjust the motor.
 
 ![Dual Step Responses](https://github.com/Cadre1/Lab4/assets/55156855/6307fb36-73d6-4841-b59e-4533332be3e4)
