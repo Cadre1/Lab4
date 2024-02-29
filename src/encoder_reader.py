@@ -1,6 +1,6 @@
 """! @file encoder_reader.py
 This program creates the class "Encoder" which initializes the timers/counters required for the encoder using provided channel pins and a timer/counter.
-This class also contains the ability to set the read the overall motor position (being able to bypass overflow and underflow), and is able to zero at any position.
+This class also contains the ability to set the read the overall motor position in radians or counts (being able to bypass overflow and underflow), and is able to zero at any position.
 """
 import motor_driver
 import utime

@@ -1,6 +1,6 @@
 """! @file motor_driver.py
 This program creates the class "MotorDriver" which initializes the GPIO pins as PWM outputs for one motor.
-This class also contains the ability to set the PWM percent duty-cycle.
+This class also contains the ability to enable the motor, disable the motor, and set the PWM percent duty-cycle.
 """
 import pyb
 import utime

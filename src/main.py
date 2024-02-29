@@ -1,9 +1,10 @@
 """!
-@file basic_tasks.py
-    This file contains a demonstration program that runs some tasks, an
-    inter-task shared variable, and a queue. The tasks don't really @b do
-    anything; the example just shows how these elements are created and run.
-
+@file main.py
+    This program sets up two tasks to run two different DC motors with encoders, 4 inter-task shared variables, and a queue.
+    Upon the microcontroller's reset, the program will wait for an pair of input, Kps and position setpoints.
+    A pair of encoders, motor drivers, and proportional contollers are then set up and controlled as separate cotasks with these input values.
+    These cotasks are run without blocking each other and the responses are printed out.
+    
 @author JR Ridgely
 @date   2021-Dec-15 JRR Created from the remains of previous example
 @copyright (c) 2015-2021 by JR Ridgely and released under the GNU
@@ -19,11 +20,10 @@ import motor_driver
 import encoder_reader
 import motor_control
 
-
 def task1_fun(shares):
     """!
-    Task that controls MotorB
-    @param shares A list holding the share and queue used by this task
+    Task that controls MotorB (The first motor)
+    @param shares A list holding the two shares, share1(setpoint) and share2(Kp), and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
     share1, share2, my_queue = shares
@@ -94,8 +94,8 @@ def task1_fun(shares):
 
 def task2_fun(shares):
     """!
-    Task that controls MotorB
-    @param shares A list holding the share and queue used by this task
+    Task that controls MotorC (The second motor)
+    @param shares A list holding the two shares, share1(setpoint) and share2(Kp), and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
     share1, share2, my_queue = shares
@@ -164,13 +164,10 @@ def task2_fun(shares):
         yield 0
 
 
-# This code creates a share, a queue, and two tasks, then starts the tasks. The
+# This code creates 4 shares, a queue, and 2 tasks, then starts the tasks. The
 # tasks run until somebody presses ENTER, at which time the scheduler stops and
 # printouts show diagnostic information about the tasks, share, and queue.
 if __name__ == "__main__":
-    print("Testing ME405 stuff in cotask.py and task_share.py\r\n"
-          "Press Ctrl-C to stop and show diagnostics.")
-
     # Create a share and a queue to test function and diagnostic printouts
     share1 = task_share.Share('h', thread_protect=False, name="Share 1")
     share3 = task_share.Share('f', thread_protect=False, name="Share 3")
@@ -189,7 +186,10 @@ if __name__ == "__main__":
             # Waits for an input position 1 to be .write() to the shell
             val = input()
             share1.put(int(val))
-        except:
+        except TypeError:
+            # Returns "Invalid" if the input value is invalid
+            print("Invalid")
+        except ValueError:
             # Returns "Invalid" if the input value is invalid
             print("Invalid")
         else:
@@ -204,7 +204,10 @@ if __name__ == "__main__":
             # Waits for an input position 2 to be .write() to the shell
             val = input()
             share2.put(int(val))
-        except:
+        except TypeError:
+            # Returns "Invalid" if the input value is invalid
+            print("Invalid")
+        except ValueError:
             # Returns "Invalid" if the input value is invalid
             print("Invalid")
         else:
@@ -219,7 +222,10 @@ if __name__ == "__main__":
             # Waits for an input Kp 1 to be .write() to the shell
             val = input()
             share3.put(float(val))
-        except:
+        except TypeError:
+            # Returns "Invalid" if the input value is invalid
+            print("Invalid")
+        except ValueError:
             # Returns "Invalid" if the input value is invalid
             print("Invalid")
         else:
@@ -234,7 +240,10 @@ if __name__ == "__main__":
             # Waits for an input Kp 2 to be .write() to the shell
             val = input()
             share4.put(float(val))
-        except:
+        except TypeError:
+            # Returns "Invalid" if the input value is invalid
+            print("Invalid")
+        except ValueError:
             # Returns "Invalid" if the input value is invalid
             print("Invalid")
         else:

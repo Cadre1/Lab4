@@ -1,11 +1,8 @@
 """!
-@file lab3.py
-Runs a real and simulated dynamic response to a step response and plots the results.
-This program allows for the user to input a desired Dist value and, with a connected
-and encoder, will produce a step response for the position of the motor.
-
-This program demonstrates a way to make a simple GUI with a plot in it. It uses Tkinter,
-an old-fashioned and ugly but useful GUI library which is included in Python by default.
+@file lab4.py
+Runs a pair of controlled motor responses from a step input and plots the results.
+This program allows for the user to input a pair of desired angular distances and Kps.
+With these values, the microcontroller will produce two step responses for the position of the motor using an encoder and proportional controller.
 
 This file is based loosely on an example found at
 https://matplotlib.org/stable/gallery/user_interfaces/embedding_in_tk_sgskip.html
@@ -32,7 +29,10 @@ def plot_output(plot_axes, plot_canvas, xlabel, ylabel, Dist1_var, Dist2_var, Kp
     @param plot_canvas The plot canvas, also supplied by Matplotlib
     @param xlabel The label for the plot's horizontal axis
     @param ylabel The label for the plot's vertical axis
-    @param Dist_var The text entry object for Dist
+    @param Dist_var1 The text entry object for Dist1
+    @param Dist_var1 The text entry object for Dist2
+    @param Dist_var1 The text entry object for Kp1
+    @param Dist_var1 The text entry object for Kp2
     """
     
     # Real test data is read through the USB-serial
@@ -54,10 +54,10 @@ def plot_output(plot_axes, plot_canvas, xlabel, ylabel, Dist1_var, Dist2_var, Kp
         ylist2 = [] # List of y-values
         
         # Writes (Ctrl-B, Ctrl-C, Ctrl-D) to reset the serial port and rerun main on microcontroller
-        
         serial_port.write(b'\x02')
         serial_port.write(b'\x03')
         serial_port.write(b'\x04')
+        
         # Waits for "Input" to be prompted by microcontroller
         while True:
             line = serial_port.readline().decode('utf-8').strip()
@@ -130,8 +130,6 @@ def plot_output(plot_axes, plot_canvas, xlabel, ylabel, Dist1_var, Dist2_var, Kp
             elif line == "Valid":
                 break    
             
-            
-            
         # Waits for the printed out position
         while True:
             # Catches any errors in converting Bytes to Strings
@@ -164,7 +162,7 @@ def plot_output(plot_axes, plot_canvas, xlabel, ylabel, Dist1_var, Dist2_var, Kp
                     xlist1.append(float(line[0])) # Adds passed float value to x-values
                     ylist1.append(float(line[1])) # Adds passed float value to y-values
             except Exception as error:
-                    print(error)
+                print(error)
         
         # Waits for the printed out position
         while True:
@@ -198,7 +196,7 @@ def plot_output(plot_axes, plot_canvas, xlabel, ylabel, Dist1_var, Dist2_var, Kp
                     xlist2.append(float(line[0])) # Adds passed float value to x-values
                     ylist2.append(float(line[1])) # Adds passed float value to y-values
             except Exception as error:
-                    print(error)
+                print(error)
         
         # Closes the serial port
         serial_port.close()
